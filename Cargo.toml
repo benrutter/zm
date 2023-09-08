@@ -7,6 +7,7 @@ edition = "2021"
 
 [dependencies]
 walkdir = "2"
+dirs = "2.0"
 
 [[bin]]
 name = "zoom"

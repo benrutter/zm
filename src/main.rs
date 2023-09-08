@@ -1,3 +1,4 @@
+use dirs::home_dir;
 use std::env;
 use std::fs;
 use walkdir::WalkDir;
@@ -9,7 +10,9 @@ fn main() {
         println!("{}", matched_path);
     } else if let Some(matched_path) = match_in_dir_recursive(&to_match, "./") {
         println!("{}", matched_path);
-    } else if let Some(matched_path) = match_in_dir_recursive(&to_match, "~/") {
+    } else if let Some(matched_path) =
+        match_in_dir_recursive(&to_match, home_dir().expect("REASON").to_str().unwrap())
+    {
         println!("{}", matched_path);
     } else {
         println!("{}", to_match);
