@@ -7,3 +7,7 @@ edition = "2021"
 
 [dependencies]
 walkdir = "2"
+
+[[bin]]
+name = "zoom"
+path = "src/main.rs"
