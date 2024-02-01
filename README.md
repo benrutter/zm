@@ -34,7 +34,7 @@ That means if you add something like this to your **.zshrc**:
 ```zsh
 zm() {
   dir=$1
-  cd $(zoom $dir)
+  cd "$(zoom $dir)"
 }
 ```
 
