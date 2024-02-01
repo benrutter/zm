@@ -1,5 +1,5 @@
-# zm 🌠
-improved cd
+# zm 🦘
+*cd* for lazy people who don't care where they are, or how to get where they're going
 
 ## What is this?
 
@@ -23,11 +23,13 @@ $_ zoom some_dir
 > /home/you/Documents/here_is_some_dir
 ```
 
-Essentially "zoom" will look for a directory that ends with the string you gave:
+The *zoom* command will look for a directory that ends with the string you gave:
 - In your current folder
 - Recursively from your current folder
 - Recursively from your home directory
-Once it finds a match, it'll stop looking and return the path.
+Once it finds a match, it'll stop looking and return the path. If it can't find a match, it'll just pass back what you gave it.
+
+The code is minimal and in rust, so will search relatively fast. This might not be a suitable tool for an *extremely large* filesystem, like some kinds of servers.
 
 That means if you add something like this to your **.zshrc**:
 
@@ -41,3 +43,8 @@ zm() {
 Then you'll have a shiny new tool you can use like "cd".
 
 Typing "zm some_dir" will transport you to that directory based on the logic of zoom.
+
+
+## Bonus! (moving up)
+
+*zm* will resolve `..3` to `../../..` to navigate you up several directories. So can be a handy way to move up several directories.

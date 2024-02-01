@@ -1,4 +1,5 @@
 use dirs::home_dir;
+use regex::Regex;
 use std::env;
 use std::fs;
 use walkdir::{DirEntry, WalkDir};
@@ -6,7 +7,19 @@ use walkdir::{DirEntry, WalkDir};
 fn main() {
     let args: Vec<String> = env::args().collect();
     let to_match: &String = &args[1];
-    if let Some(matched_path) = match_in_dir(&to_match, "./") {
+    let re = Regex::new(r"\.\.(\d+)").unwrap();
+    if let Some(captured) = re.captures(to_match) {
+        if let Some(digit_match) = captured.get(1) {
+            if let Ok(digit) = digit_match.as_str().parse::<u32>() {
+                let up_cmd: String = std::iter::repeat("../").take(digit as usize).collect();
+                println!("{}", up_cmd)
+            } else {
+                panic!("This shouldn't be reached, string has matched (/d+) regex, but not converted to int")
+            }
+        } else {
+            println!("{}", to_match)
+        }
+    } else if let Some(matched_path) = match_in_dir(&to_match, "./") {
         println!("{}", matched_path);
     } else if let Some(matched_path) = match_in_dir_recursive(&to_match, "./") {
         println!("{}", matched_path);
