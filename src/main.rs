@@ -6,9 +6,16 @@ use walkdir::{DirEntry, WalkDir};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
-    let to_match: &String = &args[1];
+    let to_match: &str;
+    if args.len() <= 1 {
+        to_match = "";
+    } else {
+        to_match = &args[1];
+    }
     let re = Regex::new(r"\.\.(\d+)").unwrap();
-    if let Some(captured) = re.captures(to_match) {
+    if to_match == "" {
+        println!("")
+    } else if let Some(captured) = re.captures(to_match) {
         if let Some(digit_match) = captured.get(1) {
             if let Ok(digit) = digit_match.as_str().parse::<u32>() {
                 let up_cmd: String = std::iter::repeat("../").take(digit as usize).collect();
